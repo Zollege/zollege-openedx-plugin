@@ -18,12 +18,12 @@ class ZollegePluginConfig(AppConfig):
         'url_config': {
             'lms.djangoapp': {
                 'namespace': 'zollege_openedx_plugin',
-                'regex': r'^zollege_openedx_plugin/',
+                'regex': r'^zollege-openedx-plugin/',
                 'relative_path': 'urls',
             },
             'cms.djangoapp': {
                 'namespace': 'zollege_openedx_plugin',
-                'regex': r'^zollege_openedx_plugin/',
+                'regex': r'^zollege-openedx-plugin/',
                 'relative_path': 'urls',
             }
         },
@@ -31,13 +31,11 @@ class ZollegePluginConfig(AppConfig):
             'lms.djangoapp': {
                 'common': {'relative_path': 'settings.common'},
                 'test': {'relative_path': 'settings.test'},
-                'aws': {'relative_path': 'settings.aws'},
                 'production': {'relative_path': 'settings.production'},
             },
             'cms.djangoapp': {
                 'common': {'relative_path': 'settings.common'},
                 'test': {'relative_path': 'settings.test'},
-                'aws': {'relative_path': 'settings.aws'},
                 'production': {'relative_path': 'settings.production'},
             },
         }
