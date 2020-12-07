@@ -39,4 +39,9 @@ def plugin_settings(settings):
     Set of plugin settings used by the Open Edx platform.
     More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
-    pass
+    settings.ZOLLEGE_USERS_BACKEND = (
+        "zollege_openedx_plugin.edxapp_wrappers.backends.users_j_v1"
+    )
+    settings.ZOLLEGE_LIB_UTILS_BACKEND = (
+        "zollege_openedx_plugin.edxapp_wrappers.backends.lib_utils_j_v1"
+    )

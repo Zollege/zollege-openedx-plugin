@@ -73,13 +73,10 @@ setup(
     long_description_content_type='text/x-rst',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Affero General Public License v3',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.8',
@@ -92,6 +89,9 @@ setup(
     zip_safe=False,
     entry_points={
         "lms.djangoapp": [
+            'zollege_openedx_plugin = zollege_openedx_plugin.apps:ZollegePluginConfig',
+        ],
+        "cms.djangoapp": [
             'zollege_openedx_plugin = zollege_openedx_plugin.apps:ZollegePluginConfig',
         ],
     },

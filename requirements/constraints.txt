@@ -8,12 +8,11 @@
 # pin when possible.  Writing an issue against the offending project and
 # linking to it here is good.
 
-# Django version 2.0.0 dropped support for python 2.7
-Django<2.0
+# Using LTS version
+Django<2.3
 
-# Already in python3 standard library
-futures; python_version == "2.7"
+# stevedore version 2.0.0 requires python >= 3.6
+stevedore<2.0.0
 
-# TODO: Add constraint explanation
-pylint==1.9.3
-pycodestyle==2.5.0
+# stevedore version 5.0.0 requires python >= 3.6
+isort<5.0.0
