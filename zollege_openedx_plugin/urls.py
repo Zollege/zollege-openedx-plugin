@@ -13,7 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
+from django.conf.urls import include, url
 
-urlpatterns = []
+app_name = "zollege_openedx"  # pylint: disable=invalid-name
+
+
+urlpatterns = [  # pylint: disable=invalid-name
+    url(
+        r"^api/",
+        include("zollege_openedx_plugin.api.urls", namespace="zollege-openedx-api"),
+    )
+]

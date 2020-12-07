@@ -14,22 +14,22 @@ from __future__ import unicode_literals
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'secret-key'
+SECRET_KEY = "secret-key"
 
 
 # Application definition
 
 INSTALLED_APPS = []
 
-ROOT_URLCONF = 'zollege_openedx_plugin.urls'
+ROOT_URLCONF = "zollege_openedx_plugin.urls"
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_TZ = True
 

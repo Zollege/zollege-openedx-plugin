@@ -11,32 +11,28 @@ class ZollegePluginConfig(AppConfig):
     """
     Zollege Open edX plugin configuration.
     """
-    name = 'zollege_openedx_plugin'
-    verbose_name = 'Zollege Open edX plugin'
+
+    name = "zollege_openedx_plugin"
+    verbose_name = "Zollege Open edX plugin"
 
     plugin_app = {
-        'url_config': {
-            'lms.djangoapp': {
-                'namespace': 'zollege_openedx_plugin',
-                'regex': r'^zollege-openedx-plugin/',
-                'relative_path': 'urls',
-            },
-            'cms.djangoapp': {
-                'namespace': 'zollege_openedx_plugin',
-                'regex': r'^zollege-openedx-plugin/',
-                'relative_path': 'urls',
+        "url_config": {
+            "lms.djangoapp": {
+                "namespace": "zollege_openedx_plugin",
+                "regex": r"^zollege-openedx/",
+                "relative_path": "urls",
             }
         },
-        'settings_config': {
-            'lms.djangoapp': {
-                'common': {'relative_path': 'settings.common'},
-                'test': {'relative_path': 'settings.test'},
-                'production': {'relative_path': 'settings.production'},
+        "settings_config": {
+            "lms.djangoapp": {
+                "common": {"relative_path": "settings.common"},
+                "test": {"relative_path": "settings.test"},
+                "production": {"relative_path": "settings.production"},
             },
-            'cms.djangoapp': {
-                'common': {'relative_path': 'settings.common'},
-                'test': {'relative_path': 'settings.test'},
-                'production': {'relative_path': 'settings.production'},
+            "cms.djangoapp": {
+                "common": {"relative_path": "settings.common"},
+                "test": {"relative_path": "settings.test"},
+                "production": {"relative_path": "settings.production"},
             },
-        }
+        },
     }
