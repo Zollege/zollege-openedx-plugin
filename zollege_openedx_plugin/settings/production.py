@@ -13,3 +13,10 @@ def plugin_settings(settings):
     settings.SCORMXBLOCK_ASYNC_THRESHOLD = settings.ENV_TOKENS.get(
         "SCORMXBLOCK_ASYNC_THRESHOLD", 150
     )
+
+    settings.ZOLLEGE_USERS_BACKEND = getattr(settings, "ENV_TOKENS", {}).get(
+        "ZOLLEGE_USERS_BACKEND", settings.ZOLLEGE_USERS_BACKEND
+    )
+    settings.ZOLLEGE_LIB_UTILS_BACKEND = getattr(settings, "ENV_TOKENS", {}).get(
+        "ZOLLEGE_LIB_UTILS_BACKEND", settings.ZOLLEGE_LIB_UTILS_BACKEND
+    )

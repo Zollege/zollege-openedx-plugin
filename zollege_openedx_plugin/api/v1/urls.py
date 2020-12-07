@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.conf.urls import url
 
-from zollege_openedx_plugin.api.v1 import views
+from zollege_openedx_plugin.api.v1.views import ProfileView
 
 app_name = "zollege_openedx"  # pylint: disable=invalid-name
 

@@ -11,18 +11,24 @@ from edx_rest_framework_extensions.auth.session.authentication import (
     SessionAuthenticationAllowInactiveUser,
 )
 
-from student.models import User, UserProfile
-from openedx.core.lib.api.parsers import MergePatchParser
-from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
-from openedx.core.djangoapps.user_api.accounts.api import get_account_settings
-from openedx.core.djangoapps.user_api.errors import (
-    AccountUpdateError,
-    AccountValidationError,
-    UserAPIInternalError,
-    UserNotAuthorized,
-    UserNotFound,
+
+from zollege_openedx_plugin.edxapp_wrappers.users import (
+    get_edxapp_user_model,
+    get_user_profile_model,
+    get_user_api_errors,
+    get_user_api_helpers,
+    get_account_settings,
+    get_bearer_authentication_allow_inactive_user,
 )
-from openedx.core.djangoapps.user_api import helpers
+
+from zollege_openedx_plugin.edxapp_wrappers.lib_utils import get_merge_patch_parser
+
+errors = get_user_api_errors()
+User = get_edxapp_user_model()
+UserProfile = get_user_profile_model()
+helpers = get_user_api_helpers()
+BearerAuthenticationAllowInactiveUser = get_bearer_authentication_allow_inactive_user()
+MergePatchParser = get_merge_patch_parser()
 
 
 class ProfileView(ViewSet):
@@ -43,7 +49,7 @@ class ProfileView(ViewSet):
             account_settings = get_account_settings(
                 request, [username], view=request.query_params.get("view")
             )
-        except UserNotFound:
+        except errors.UserNotFound:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return Response(account_settings[0])
@@ -56,15 +62,15 @@ class ProfileView(ViewSet):
             with transaction.atomic():
                 update_profile(request.user, request.data, username=username)
                 account_settings = get_account_settings(request, [username])[0]
-        except UserNotAuthorized:
+        except errors.UserNotAuthorized:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        except UserNotFound:
+        except errors.UserNotFound:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        except AccountValidationError as err:
+        except errors.AccountValidationError as err:
             return Response(
                 {"field_errors": err.field_errors}, status=status.HTTP_400_BAD_REQUEST
             )
-        except AccountUpdateError as err:
+        except errors.AccountUpdateError as err:
             return Response(
                 {
                     "developer_message": err.developer_message,
@@ -76,7 +82,9 @@ class ProfileView(ViewSet):
         return Response(account_settings)
 
 
-@helpers.intercept_errors(UserAPIInternalError, ignore_errors=[UserAPIRequestError])
+@helpers.intercept_errors(
+    errors.UserAPIInternalError, ignore_errors=[errors.UserAPIRequestError]
+)
 def update_profile(requesting_user, update, username=None):
     """Update user profile information.
     currently only handles meta
@@ -92,11 +100,11 @@ def update_profile(requesting_user, update, username=None):
     3. if both are valid json, merge
     """
     if not requesting_user.is_superuser:
-        raise UserNotAuthorized()
+        raise errors.UserNotAuthorized()
     try:
         updated_meta = json.loads(update["meta"])
     except json.decoder.JSONDecodeError as err:
-        raise AccountValidationError(["meta must be json"])
+        raise errors.AccountValidationError(["meta must be json"])
 
     if not user_profile.meta:
         user_profile.meta = update["meta"]
@@ -121,7 +129,7 @@ def _get_user_and_profile(username):
     try:
         existing_user = User.objects.get(username=username)
     except ObjectDoesNotExist:
-        raise UserNotFound()
+        raise errors.UserNotFound()
 
     existing_user_profile, _ = UserProfile.objects.get_or_create(user=existing_user)
 
