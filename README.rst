@@ -2,11 +2,7 @@
 Zollege Open edX plugin
 =======================
 
-
-Features
-########
-
-Place your plugin features list.
+Custom extensions to the openedx platform used by Zollege.
 
 Installation
 ############
@@ -18,13 +14,3 @@ Open edX devstack
 - Open a new Lms/Devstack shell.
 - Install the plugin as follows: pip install -e /path/to/your/src/folder
 - Restart Lms/Studio services.
-
-Usage
-#####
-
-Include a usage description for your plugin.
-
-Contributing
-############
-
-Add your contribution policy. (If required)
